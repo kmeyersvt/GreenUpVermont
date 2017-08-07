@@ -112,13 +112,31 @@ class TeamEditorDetails extends Component {
                     <Text style={styles.label}>Town:</Text>
                     <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('town')} placeholder={'Town'} style={{
                         width: '80%'
+                    }} value={this.state.selectedTeam.town}/>
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Location:</Text>
+                    <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('location')} placeholder={'Location'} style={{
+                        width: '80%'
                     }} value={this.state.selectedTeam.location}/>
                 </View>
                 <View style={styles.column}>
-                    <Text style={styles.label}>Town:</Text>
-                    <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('town')} placeholder={'Town'} style={{
+                    <Text style={styles.label}>Start:</Text>
+                    <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('start')} placeholder={'Start'} style={{
                         width: '80%'
-                    }} value={this.state.selectedTeam.location}/>
+                    }} value={this.state.selectedTeam.start.toString()}/>
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>End:</Text>
+                    <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('end')} placeholder={'End'} style={{
+                        width: '80%'
+                    }} value={this.state.selectedTeam.end.toString()}/>
+                </View>
+                <View style={styles.column}>
+                    <Text style={styles.label}>Notes:</Text>
+                    <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('Notes')} placeholder={'Notes'} style={{
+                        width: '80%'
+                    }} value={this.state.selectedTeam.notes.toString()}/>
                 </View>
                 <Button title='Save' onPress={this.saveTeam}/>
             </View>

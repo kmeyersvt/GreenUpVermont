@@ -68,6 +68,7 @@ export default {
                     _id: '123456',
                     name: 'Any Pants Green Up Team',
                     description: 'Awesome Team, Yay!',
+                    town: 'Burlington',
                     notes: [
                         'note 1', 'note 2'
                     ],
