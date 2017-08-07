@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         margin: 10
+    },
+    text: {
+        fontSize: 30,
+        textAlign: 'left',
+        margin: 10
     }
 });
 class TeamEditorMembers extends Component {
@@ -55,6 +60,12 @@ class TeamEditorMembers extends Component {
         return (
             <View style={styles.container}>
                 <Text>Team Editor Members Screen</Text>
+                <Text style={styles.text}>
+                    Bob Smith
+                </Text>
+                <Text style={styles.text}>
+                    Norah Jones
+                </Text>
                 <Button onPress={this.inviteContacts} title='Invite Contacts'/>
                 <Button onPress={this.inviteForm} title='Invite to Team'/>
             </View>
