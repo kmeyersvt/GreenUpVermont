@@ -5,7 +5,7 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Button, StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {Button, StyleSheet, Text, TouchableHighlight, View, TextInput} from 'react-native';
 import {FontAwesome} from '@expo/vector-icons';
 import * as teamActions from './team-actions';
 import {bindActionCreators} from 'redux';
@@ -45,36 +45,65 @@ class TeamEditorMembers extends Component {
     };
     constructor(props) {
         super(props);
-        this.inviteContacts = this.inviteContacts.bind(this);
-        this.inviteForm = this.inviteForm.bind(this);
+        this.options = [
+            {
+                label: 'Public',
+                value: 'public'
+            }, {
+                label: 'Private',
+                value: 'private'
+            }
+        ];
+        this.setTeamValue = this.setTeamValue.bind(this);
+        this.setSelectedOption = this.setSelectedOption.bind(this);
+        this.saveTeam = this.saveTeam.bind(this);
+        this.state = {
+            selectedOption: this.options[0],
+            selectedTeam: {}
+        };
     }
 
-    inviteContacts() {
-        this.props.screenProps.stacknav.navigate('InviteContacts');
+    componentWillMount() {
+        this.setState({selectedTeam: this.props.selectedTeam});
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState({selectedTeam: nextProps.selectedTeam});
+    }
+    setSelectedOption(option) {
+        console.log(option);
+        this.setState({selectedOption: option});
     }
 
-    inviteForm() {
-        this.props.screenProps.stacknav.navigate('InviteForm');
+    saveTeam() {
+        this.props.actions.saveTeam(this.state.selectedTeam);
     }
+
+    setTeamValue(key) {
+        let newState = {};
+        return (value) => {
+            newState[key] = value;
+            this.setState({selectedTeam: Object.assign({}, this.state.selectedTeam, newState)});
+        };
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text>Team Editor Members Screen</Text>
-                <Text style={styles.text}>
-                    Bob Smith
-                </Text>
-                <Text style={styles.text}>
-                    Norah Jones
-                </Text>
+                <Text>Members:</Text>
+                <TextInput keyBoardType={'default'} onChangeText={this.setTeamValue('members')} placeholder={'Members'} style={{
+                    width: '80%'
+                }} value={this.state.selectedTeam.members[0].lastName}/>
                 <Button onPress={this.inviteContacts} title='Invite Contacts'/>
                 <Button onPress={this.inviteForm} title='Invite to Team'/>
             </View>
+
         );
     }
 }
 
 function mapStateToProps(state, ownProps) {
-    return {teams: state.teamReducers.session.user.teams};
+    return {selectedTeam: state.teamReducers.selectedTeam};
 }
 
 function mapDispatchToProps(dispatch) {
