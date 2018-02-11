@@ -43,7 +43,8 @@ You can download the free edition of [geni motion here](https://www.genymotion.c
 
 (Note that Geni Motion needs a virtual engine to run.  They recommend using virtualbox which [you can download here](https://www.virtualbox.org/wiki/Downloads).)
 
-Geni Motion requires you to create an account to download their simulation, and also to actually use it.  After successfully starting Geni Motion it will prompt you to login.  Then you will be prompted to select a new "virtual device" (eg an android device).  Pick whatever suits you and give it a minute to download.
+Geni Motion requires you to create an account to download their simulation, and also to actually use it.  After successfully starting Geni Motion it will prompt you to login.  Then you will be prompted to select a new "virtual device" (eg an android device).  I recommend starting with a Google Nexus 5x 7.1.0.
+- Note: the first time I used another device and got "Error running adb: No Android device found." Using a Nexux fixed that for me.
 
 Find Genymotion’s copy of adb. On macOS this is normally /Applications/Genymotion.app/Contents/MacOS/tools/. Add the Genymotion tools directory to your path and makee sure that you can run adb from your terminal.
 
@@ -70,7 +71,7 @@ Then run `$ exp path`. This will save your PATH environment variable so that XDE
 
 Then in the Expo XDE choose "open existing project", navigate to the GreenUp app root directory, and click "open".  Expo will now try to build your react native project. It's possible there will be some errors at this point so deal with them as they arise.  I expereinced these three errors, and found these solutions:
 - Wrong version on npm was reported by XDE (appeared as an orange 'issue' alert)
-  - I attempted to roll back to correct version with `$ npm install -g npm@4.6.1`.  Despite seeing v4.6.1 when I type `$ npm -v`, expo still reports me as running 5.6.0.
+  - I rolled back to correct version with `$ npm install -g npm@4.6.1`.  When I restarted expo the alert was gone.
 - Missing lodash dependency
   - I fixed this by running `$ yarn add lodash` and restarting the expo project
 
