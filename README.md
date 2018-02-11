@@ -66,7 +66,9 @@ $ npm install
 Install expo globally:
 `$ npm install -g exp`
 
-Then in Expo choose "open existing project", navigate to the GreenUp app root directory, and click "open".  Expo will now try to build your react native project. It's possible there will be some errors at this point so deal with them as they arise.  I expereinced these three errors, and found these solutions:
+Then run `$ exp path`. This will save your PATH environment variable so that XDE knows where to find your Android tools.
+
+Then in the Expo XDE choose "open existing project", navigate to the GreenUp app root directory, and click "open".  Expo will now try to build your react native project. It's possible there will be some errors at this point so deal with them as they arise.  I expereinced these three errors, and found these solutions:
 - Wrong version on npm was reported by XDE (appeared as an orange 'issue' alert)
   - I attempted to roll back to correct version with `$ npm install -g npm@4.6.1`.  Despite seeing v4.6.1 when I type `$ npm -v`, expo still reports me as running 5.6.0.
 - Missing lodash dependency
