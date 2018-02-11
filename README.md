@@ -45,6 +45,16 @@ You can download the free edition of [geni motion here](https://www.genymotion.c
 
 Geni Motion requires you to create an account to download their simulation, and also to actually use it.  After successfully starting Geni Motion it will prompt you to login.  Then you will be prompted to select a new "virtual device" (eg an android device).  Pick whatever suits you and give it a minute to download.
 
+Find Genymotion’s copy of adb. On macOS this is normally /Applications/Genymotion.app/Contents/MacOS/tools/. Add the Genymotion tools directory to your path and makee sure that you can run adb from your terminal.
+
+In order to do this, I added this line to my ~/.bash_profile:
+`export PATH="/Applications/Genymotion.app/Contents/MacOS/tools:$PATH"         # android adb`
+I confirmed the path addition this way:
+```
+$ source ~/.bash_profile
+$ which adb
+```
+
 ### Create New Expo project
 
 Run node install on the GreenUp app:
@@ -53,6 +63,18 @@ $ cd sites/GreenUpVermont
 $ npm install
 ```
 
-Then in Expo choose "open existing project", navigate to the GreenUp app root directory, and click "open".
+Install expo globally:
+`$ npm install -g exp`
 
+Then in Expo choose "open existing project", navigate to the GreenUp app root directory, and click "open".  Expo will now try to build your react native project. It's possible there will be some errors at this point so deal with them as they arise.  I expereinced these three errors, and found these solutions:
+- Wrong version on npm was reported by XDE (appeared as an orange 'issue' alert)
+  - I attempted to roll back to correct version with `$ npm install -g npm@4.6.1`.  Despite seeing v4.6.1 when I type `$ npm -v`, expo still reports me as running 5.6.0.
+- Missing lodash dependency
+  - I fixed this by running `$ yarn add lodash` and restarting the expo project
 
+If all goes well, you should see expo display this message:
+```
+10:52:24 PM  Tunnel connected.
+10:52:25 PM  Project opened! You can now use the "Share" or "Device" buttons to view your project.
+```
+You should also see a url displayed reading `exp://localhost:19001`.  If the protocol or host do not match, set them accordingly by clicking on the cog icon to the left of the url.
