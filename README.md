@@ -80,4 +80,7 @@ If all goes well, you should see expo display this message:
 10:52:24 PM  Tunnel connected.
 10:52:25 PM  Project opened! You can now use the "Share" or "Device" buttons to view your project.
 ```
-You should also see a url displayed reading `exp://localhost:19001`.  If the protocol or host do not match, set them accordingly by clicking on the cog icon to the left of the url.
+At this point you will probably see a url like `exp://localhost:19001`.  It seems more reliable to use a different host.  Click on the cog icon to the left of the url and set "host" to LAN.  This appears to be more reliable than localhost or tunnel.  You should now see a url like `exp://192.168.1.111:19000`. Click the restart button in expo.
+
+At this point you should be able to open the app on your genymotion simulted Android device by clicking `⌘ D` or clicking on the Device icon in the XDE.  
+- Note: you must have genymotion running and have started a device before launching the app from expo.
