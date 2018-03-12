@@ -11,24 +11,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {defaultStyles} from '../../styles/default-styles';
 
-const myStyles = {
-  // team:{
-  //   fontSize: 20,
-  //   fontWeight: 'bold',
-  //   paddingLeft: 5
-  // },
-  // team_name:{
-  //   fontSize: 20,
-  //   fontWeight: 'bold',
-  // },
-  // message:{
-  //   paddingTop: 5,
-  //   paddingLeft: 15,
-  //   borderTopWidth: 1,
-  //   borderTopColor: '#000'
-  //
-  // }
-};
+const myStyles = {};
 
 const combinedStyles = Object.assign({}, defaultStyles, myStyles);
 const styles = StyleSheet.create(combinedStyles);
@@ -52,7 +35,7 @@ class MessageDetails extends Component {
     render() {
         const message = this.props.messages[this.props.navigation.state.params.messageId];
         const teamId = message.teamId;
-        const team = Object.values(this.props.teams[teamId] || [])
+        const team = this.props.teams[teamId] || [];
         return (
             <View style={styles.container}>
                 {!message
