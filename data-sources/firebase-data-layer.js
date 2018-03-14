@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import * as dataLayerActions from './data-layer-actions';
 import {User} from '../models/user';
 import {TeamMember} from '../models/team-member';
+import * as types from '../constants/actionTypes';
 
 // TODO : Fix these promise chains
 // Some of these functions have nested promises where some of the promised are ignored (Not returned)
@@ -108,6 +109,7 @@ async function initialize(dispatch) {
             if (!!user) {
                 console.log('We are authenticated now!'); // eslint-disable-line
                 dispatch(dataLayerActions.userAuthenticated(User.create(user)));
+                dispatch({type: types.IS_LOGGING_IN_VIA_SSO, isLoggingInViaSSO: false});
                 setupMessageListener(user.uid, dispatch);
                 setupProfileListener(user.uid, dispatch);
                 setupTeamListener(dispatch);
@@ -119,36 +121,6 @@ async function initialize(dispatch) {
                 dispatch(dataLayerActions.userFailedAuthentication());
             }
         });
-    // const teams = firebase.database().ref('teams/');
-    //
-    // teams.on('value', (snapshot) => {
-    //    dispatch(dataLayerActions.teamFetchSuccessful(snapshot.val()));
-    // });
-
-    // const trashDrops = firebase.database().ref('trashDrops/');
-    //
-    // await trashDrops.on('value', (snapshot) => {
-    //     dispatch(dataLayerActions.trashDropFetchSuccessful(snapshot.val()));
-    // });
-
-
-    /** end Listeners **/
-
-
-// await firebase.getCurrentUser(
-//     (user) => {
-//         if (!!user) {
-//             console.log('We are authenticated now!'); // eslint-disable-line
-//             dispatch(dataLayerActions.userAuthenticated(User.create(user)));
-//             setupMessageListener(user.uid, dispatch);
-//
-//         } else {
-//             console.log('We are not logged in'); // eslint-disable-line
-//             dispatch(dataLayerActions.userFailedAuthentication());
-//         }
-//     }
-// );
-
 }
 
 async function facebookAuth(token) {

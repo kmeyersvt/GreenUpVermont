@@ -10,7 +10,8 @@ export default {
         userIsLoggedIn: false,
         initialAuthChecked: false,
         creatingUser: false,
-        user: null
+        user: null,
+        isLoggingInViaSSO: false
     },
     profile: {},
     messages: {
@@ -21,7 +22,7 @@ export default {
     },
     teams: {teams: [], teamMembers: {}, contact: [], selectedTeam: null, locations: []},
     trashBagFinder: {townData: {}},
-    trashTracker: [],
+    trashTracker: {trashDrops: [], location: null},
     teamSearchResults: [],
     selectedTeam: null
 };

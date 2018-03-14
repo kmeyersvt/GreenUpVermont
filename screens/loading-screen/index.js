@@ -13,6 +13,7 @@ import RootNavigation from '../../navigation/RootNavigation';
 import * as actions from './actions';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
+import ThinkingGreenThoughts from './thinking-green-thoughts';
 
 const styles = StyleSheet.create({
     container: {
@@ -29,7 +30,8 @@ const styles = StyleSheet.create({
 class LoadingScreen extends Component {
     static propTypes = {
         isLoadingComplete: PropTypes.bool,
-        isInitialAuthChecked: PropTypes.bool,
+        initialAuthChecked: PropTypes.bool,
+        isLoggingInViaSSO: PropTypes.bool,
         actions: PropTypes.object,
         skipLoadingScreen: PropTypes.bool,
         userIsLoggedIn: PropTypes.bool
@@ -86,7 +88,14 @@ class LoadingScreen extends Component {
                         onFinish={this._handleFinishLoading}
                     />
                 );
-
+            case (this.props.isLoggingInViaSSO):
+                return (
+                    <ThinkingGreenThoughts/>
+                );
+            case (!this.props.initialAuthChecked):
+                return (
+                    <ThinkingGreenThoughts/>
+                );
             case (!this.props.userIsLoggedIn) :
                 return (
                     <LoginScreen/>
@@ -109,6 +118,7 @@ function mapStateToProps(state) {
     return {
         isLoadingComplete: state.loading.isLoadingComplete,
         initialAuthChecked: state.login.initialAuthChecked,
+        isLoggingInViaSSO : state.login.isLoggingInViaSSO,
         skipLoadingScreen: state.loading.skipLoadingScreen,
         userIsLoggedIn: state.login.userIsLoggedIn
     };

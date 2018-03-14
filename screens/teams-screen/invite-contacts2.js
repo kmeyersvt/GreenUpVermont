@@ -6,15 +6,11 @@ import {
     Button,
     StyleSheet,
     View,
-    ScrollView,
-    TouchableHighlight,
-    Text,
-    CheckBox,
-    Platform
+    ScrollView
 } from 'react-native';
+import CheckBox from 'react-native-checkbox';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import IOSCheckBox from 'react-native-checkbox';
 
 import * as actions from './actions';
 import {TeamMember} from '../../models/team-member';
@@ -36,7 +32,7 @@ function getDisplayName(contact) {
 
 function _inviteToTeam() {
     const teamMembers = this.state.contacts
-        .filter(contact => this.state.selectedContacts.indexOf(contact.email) > -1)
+        .filter(c => c.isSelected)
         .map(contact => TeamMember.create(Object.assign({}, contact, {
             displayName: `${contact.firstName} ${contact.lastName}`,
             memberStatus: TeamMember.memberStatuses.INVITED
@@ -64,7 +60,7 @@ class InviteContacts extends Component {
         this.toggleContact = this.toggleContact.bind(this);
         this.inviteToTeam = _inviteToTeam.bind(this);
         this.state = {
-            contacts: [], selectedContacts: []
+            contacts: []
         };
     }
 
@@ -84,16 +80,17 @@ class InviteContacts extends Component {
         });
     }
 
-    toggleContact(email) {
+    toggleContact(contact) {
         return () => {
-            const emails = this.state.selectedContacts || [];
-            const newContacts = (emails.indexOf(email) > -1) ? emails.filter(_email => _email !== email) : emails.concat(email);
-            this.setState({selectedContacts: newContacts});
+            const newContact = Object.assign({}, contact, {
+                isSelected: !contact.isSelected
+            });
+            const newContacts = this.state.contacts.filter(cntct => (cntct.email !== newContact.email)).concat(newContact);
+            this.setState({contacts: newContacts});
         };
     }
 
     render() {
-        const selected = this.state.selectedContacts || [];
         const myContacts = this.state.contacts
             .filter(contact => validators.email(contact.email) && !validators.isInTeam(this.props.teamMembers[this.props.selectedTeam.id], contact.email))
             .sort((a, b) => {
@@ -110,23 +107,13 @@ class InviteContacts extends Component {
                         return 0;
                 }
             }).map(
-                (contact) => (
-                    (Platform.OS === 'ios')
-                        ? (
-                            <View key={contact.email}>
-                                <IOSCheckBox
-                                    checked={(selected.indexOf(contact.email) > -1)}
-                                    label={getDisplayName(contact)}
-                                    onChange={this.toggleContact(contact.email)}
-                                />
-                            </View>
-                        )
-                        : (<TouchableHighlight key={contact.email} onPress={this.toggleContact(contact.email)}>
-                            <View style={{flex: 1, flexDirection: 'row', marginTop: 10}}>
-                                <CheckBox value={(selected.indexOf(contact.email) > -1)}/>
-                                <Text style={{fontSize: 20, marginLeft: 10}}>{getDisplayName(contact)}</Text>
-                            </View>
-                        </TouchableHighlight>)
+                (contact, i) => (
+                    <CheckBox
+                        checked={contact.isSelected}
+                        key={i}
+                        label={getDisplayName(contact)}
+                        onChange={this.toggleContact(contact)}
+                    />
                 )
             );
 

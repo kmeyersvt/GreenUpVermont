@@ -3777,6 +3777,10 @@ md5-file@^3.2.3:
   dependencies:
     buffer-alloc "^1.1.0"
 
+md5-hash@^1.0.1:
+  version "1.0.1"
+  resolved "https://artifactory.ddcplatform.dealer.com/artifactory/api/npm/all-npm/md5-hash/-/md5-hash-1.0.1.tgz#957d4a99987fa871ed451583360af5118baad725"
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
