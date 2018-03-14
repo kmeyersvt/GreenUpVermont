@@ -300,7 +300,7 @@ function updateProfile(profile: Object, teamMembers: Object) {
 function addTeamMember(teamId: string, teamMember: Object) {
     const db = firebase.database();
     const membershipId = teamMember.email.toLowerCase().replace(/\./g, ':');
-    return db.ref(`profiles/${teamMember.uid}/teams/${teamId}`).set('ACCEPTED')
+    return db.ref(`profiles/${teamMember.uid}/teams/${teamId}`).set(`${teamMember.status}`)
         .then(() => db.ref(`invitations/${membershipId}/${teamId}`).remove()
             .then(() => db.ref(`teamMembers/${teamId}/${membershipId}`).set(teamMember))
         );

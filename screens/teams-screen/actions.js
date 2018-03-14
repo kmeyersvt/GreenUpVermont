@@ -113,6 +113,7 @@ export function revokeInvitation(teamId: string, membershipId: string) {
 }
 
 export function addTeamMember(teamId: string, member: TeamMember, status: string) {
+	debugger;
     const _newMember = TeamMember.create(Object.assign({}, member, {memberStatus: status || member.memberStatus}));
     return async function () {
         firebaseDataLayer.addTeamMember(teamId, _newMember);

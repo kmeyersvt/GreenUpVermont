@@ -153,7 +153,7 @@ class Messages extends Component {
                 )
             );
 
-            return (myMessages.length > 0 || this.props.userHasTeams) ? (
+            return this.props.userHasTeams ? (
                 <View style={styles.frame}>
                     <View style={styles.button}>
                         <Button
@@ -202,13 +202,14 @@ class Messages extends Component {
 }
 
 function mapStateToProps(state) {
+	debugger;
     return {
         currentUser: state.login.user,
         invitations: state.teams.invitations || {},
         invitationsLoaded: state.messages.invitationsLoaded,
         messages: state.messages.messages || {},
         messagesLoaded: state.messages.loaded,
-        userHasTeams: Object.values(state.profile.teams || {}).length > 0,
+        userHasTeams: Object.values(state.teams.teamMembers || {}).length > 0,
         teamsLoaded: state.messages.teamsLoaded,
         teams: state.teams.teams
     };

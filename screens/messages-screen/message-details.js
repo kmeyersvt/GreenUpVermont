@@ -40,7 +40,7 @@ class MessageDetails extends Component {
 				return (
             <View style={styles.frame}>
                 {!message
-                    ? (<Text>{message || 'Oops, sorry.  We could not find that message'}</Text>)
+                    ? (<Text>{message || 'Oops, sorry.  We could not find that message.'}</Text>)
                     : (
                         <View style={{flex: 1}}>
                             <View style={{
